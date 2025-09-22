@@ -54,9 +54,6 @@
             <h2 id="message" class="text-4xl sm:text-5xl font-bold text-pink-500 animate-pulse">
                 日本23個♪
             </h2>
-            <button id="reset-button" class="mt-6 bg-pink-500 text-white font-bold py-2 px-6 rounded-full hover:bg-pink-600 transition-colors">
-                もう一度
-            </button>
         </div>
     </div>
 
@@ -65,7 +62,6 @@
         const container = document.getElementById('container');
         const messageContainer = document.getElementById('message-container');
         const title = document.getElementById('title');
-        const resetButton = document.getElementById('reset-button');
         
         let count = 0;
         const MAX_COUNT = 23;
@@ -78,8 +74,8 @@
             count++;
 
             const img = document.createElement('img');
-            // This path should correspond to the uploaded file's name
-            img.src = 'https://e7.pngegg.com/pngimages/594/935/png-clipart-japan-map-green-japan-map-green-grass.png'; 
+            // アップロードされた画像ファイル名 'japan.jpg' を直接指定します。
+            img.src = 'japan.jpg'; 
             img.alt = '日本地図';
             // Add styling for the map image
             img.className = 'w-16 h-auto sm:w-24 japan-map'; 
@@ -96,26 +92,11 @@
                 title.textContent = '完成！';
             }
         }
-
-        function resetGame() {
-            count = 0;
-            container.innerHTML = '';
-            messageContainer.classList.add('hidden');
-            messageContainer.classList.remove('flex');
-            document.body.style.cursor = 'pointer';
-            title.textContent = '画面をタップしてください！';
-        }
-
+        
         // Add event listener for both touch and mouse clicks
         document.body.addEventListener('click', addJapanMap);
-        resetButton.addEventListener('click', (e) => {
-            // Stop the event from bubbling up to the body and adding another map
-            e.stopPropagation(); 
-            resetGame();
-        });
 
     </script>
 </body>
 </html>
-
 
