@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>日本地図タップ</title>
+    <title>ブラジルは日本〇〇個分</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Ensures the body takes up the full height for tapping anywhere */
@@ -82,12 +82,12 @@
 
             // Update the title with the current count
             if (count === MAX_COUNT) {
-                title.textContent = `ブラジルの面積は日本${fullWidthCount}個分！！！`;
+                title.textContent = `ブラジルの大きさは、日本${fullWidthCount}個分！！！`;
                 title.classList.remove('text-emerald-700');
                 title.classList.add('text-pink-500'); // 明るいピンク色に変更
                 document.body.style.cursor = 'default'; // Change cursor back to default
             } else {
-                title.textContent = `ブラジルの面積は日本${fullWidthCount}個分`;
+                title.textContent = `ブラジルの大きさは、日本${fullWidthCount}個分`;
             }
         }
         
@@ -97,5 +97,4 @@
     </script>
 </body>
 </html>
-
 
