@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本地図タップ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Ensures the body takes up the full height for tapping anywhere */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: sans-serif;
+            /* Prevents the default callout menu on iOS when long-pressing */
+            -webkit-touch-callout: none;
+            /* Prevents text selection */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            /* Removes the grey highlight on tap for iOS */
+            -webkit-tap-highlight-color: transparent;
+        }
+        .japan-map {
+            animation: appear 0.5s ease-out;
+        }
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body class="bg-emerald-50 flex flex-col items-center justify-start min-h-screen cursor-pointer overflow-y-auto">
+
+    <!-- Header -->
+    <header class="w-full bg-white shadow-md p-4 text-center">
+        <h1 id="title" class="text-2xl font-bold text-emerald-700">画面をタップしてください！</h1>
+    </header>
+
+    <!-- Main container for maps -->
+    <main id="container" class="flex flex-wrap justify-center items-center gap-2 sm:gap-4 p-4 flex-grow">
+        <!-- Japan maps will be dynamically added here -->
+    </main>
+
+    <!-- Completion Message -->
+    <div id="message-container" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl text-center transform transition-all scale-95">
+            <h2 id="message" class="text-4xl sm:text-5xl font-bold text-pink-500 animate-pulse">
+                日本23個♪
+            </h2>
+            <button id="reset-button" class="mt-6 bg-pink-500 text-white font-bold py-2 px-6 rounded-full hover:bg-pink-600 transition-colors">
+                もう一度
+            </button>
+        </div>
+    </div>
+
+
+    <script>
+        const container = document.getElementById('container');
+        const messageContainer = document.getElementById('message-container');
+        const title = document.getElementById('title');
+        const resetButton = document.getElementById('reset-button');
+        
+        let count = 0;
+        const MAX_COUNT = 23;
+
+        function addJapanMap() {
+            if (count >= MAX_COUNT) {
+                return;
+            }
+
+            count++;
+
+            const img = document.createElement('img');
+            // This path should correspond to the uploaded file's name
+            img.src = 'https://cdn.pixabay.com/photo/2013/07/12/17/58/japan-152814_960_720.png'; 
+            img.alt = '日本地図';
+            // Add styling for the map image
+            img.className = 'w-16 h-auto sm:w-24 japan-map'; 
+            container.appendChild(img);
+            
+            // Update the title with the current count
+            title.textContent = `日本 ${count}個`;
+
+            if (count === MAX_COUNT) {
+                // Show completion message
+                messageContainer.classList.remove('hidden');
+                messageContainer.classList.add('flex');
+                document.body.style.cursor = 'default'; // Change cursor back to default
+                title.textContent = '完成！';
+            }
+        }
+
+        function resetGame() {
+            count = 0;
+            container.innerHTML = '';
+            messageContainer.classList.add('hidden');
+            messageContainer.classList.remove('flex');
+            document.body.style.cursor = 'pointer';
+            title.textContent = '画面をタップしてください！';
+        }
+
+        // Add event listener for both touch and mouse clicks
+        document.body.addEventListener('click', addJapanMap);
+        resetButton.addEventListener('click', (e) => {
+            // Stop the event from bubbling up to the body and adding another map
+            e.stopPropagation(); 
+            resetGame();
+        });
+
+    </script>
+</body>
+</html>
+
