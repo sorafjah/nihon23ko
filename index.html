@@ -39,8 +39,8 @@
 <body class="bg-emerald-50 flex flex-col items-center justify-start min-h-screen cursor-pointer overflow-y-auto">
 
     <!-- Header -->
-    <header class="w-full bg-white shadow-md p-4 text-center">
-        <h1 id="title" class="text-2xl font-bold text-emerald-700">画面をタップしてください！</h1>
+    <header class="w-full bg-white shadow-md p-4 text-center" style="min-height: 72px;">
+        <h1 id="title" class="text-2xl font-bold text-emerald-700">&nbsp;</h1>
     </header>
 
     <!-- Main container for maps -->
@@ -48,19 +48,8 @@
         <!-- Japan maps will be dynamically added here -->
     </main>
 
-    <!-- Completion Message -->
-    <div id="message-container" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white p-8 rounded-2xl shadow-2xl text-center transform transition-all scale-95">
-            <h2 id="message" class="text-4xl sm:text-5xl font-bold text-pink-500 animate-pulse">
-                日本23個♪
-            </h2>
-        </div>
-    </div>
-
-
     <script>
         const container = document.getElementById('container');
-        const messageContainer = document.getElementById('message-container');
         const title = document.getElementById('title');
         
         let count = 0;
@@ -82,14 +71,11 @@
             container.appendChild(img);
             
             // Update the title with the current count
-            title.textContent = `日本 ${count}個`;
-
             if (count === MAX_COUNT) {
-                // Show completion message
-                messageContainer.classList.remove('hidden');
-                messageContainer.classList.add('flex');
+                title.textContent = '日本23個！！！';
                 document.body.style.cursor = 'default'; // Change cursor back to default
-                title.textContent = '完成！';
+            } else {
+                title.textContent = `ブラジルは日本${count}個`;
             }
         }
         
