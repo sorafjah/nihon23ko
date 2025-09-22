@@ -55,6 +55,13 @@
         let count = 0;
         const MAX_COUNT = 23;
 
+        // 半角数字を全角に変換する関数
+        function toFullWidth(str) {
+            return String(str).replace(/[0-9]/g, function(s) {
+                return String.fromCharCode(s.charCodeAt(0) + 0xFEE0);
+            });
+        }
+
         function addJapanMap() {
             if (count >= MAX_COUNT) {
                 return;
@@ -63,19 +70,24 @@
             count++;
 
             const img = document.createElement('img');
-            // アップロードされた画像ファイル名 'japan.jpg' を直接指定します。
-            img.src = 'japan.jpg'; 
+            // 画像ファイル名を 'japan.png' に変更します。
+            img.src = 'japan.png'; 
             img.alt = '日本地図';
             // Add styling for the map image
             img.className = 'w-16 h-auto sm:w-24 japan-map'; 
             container.appendChild(img);
             
+            // 数字を全角に変換
+            const fullWidthCount = toFullWidth(count);
+
             // Update the title with the current count
             if (count === MAX_COUNT) {
-                title.textContent = '日本23個！！！';
+                title.textContent = `ブラジルは日本${fullWidthCount}個！！！`;
+                title.classList.remove('text-emerald-700');
+                title.classList.add('text-pink-500'); // 明るいピンク色に変更
                 document.body.style.cursor = 'default'; // Change cursor back to default
             } else {
-                title.textContent = `ブラジルは日本${count}個`;
+                title.textContent = `ブラジルは日本${fullWidthCount}個`;
             }
         }
         
